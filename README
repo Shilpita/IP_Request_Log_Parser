@@ -1,0 +1,59 @@
+The Log_Parser is a tool to load the ip logs into the MySQL Database. Following are the details for the implementation and running of the tool.
+
+1) Database schema
+   TABLE ACCESS_LOG contains all the log data from access.log file.
+         --------------------------------------------------
+         ColumnName   | Description
+         --------------------------------------------------
+         Date         | Date and Time for HTTP Request
+         IP_Address   | IP_Address sending the HTTP Request
+         Request      | HTTP_Request 
+         HTTP_Code    | HTTP Response Code
+         User_Agent   | User agent response details
+         --------------------------------------------------
+
+   TABLE BLOCKED_IP_ADDRESS conatins all the IP_ADDRESS that have been blocked.
+   		 --------------------------------------------------
+         ColumnName   | Description
+         --------------------------------------------------
+         IP_ADDRESS   | Blocked IP_Address
+         Block_Reason | Reason to block the IP
+         --------------------------------------------------
+
+
+2) Java Code
+
+	i) ConnectToDB.java
+		This class creates JDBC connection to MySQL Database.
+		It pings the URL with the Database and establishes and opens a connection with authentication.
+		Function openConnection()-
+				This function opens a connection using mysql jdbc driver.			
+		Function closeConnection(Connection con) -
+				This function closes the connection that has been opened.
+
+	ii) InsertToDB.java
+		This class opens the access.log file and parses the contents line by line using the delimiter pipe '|'.
+		This parse content is then inserted to the database table ACCESS_LOG. This is one time operation which takes considerable amount of time for large files and should be done before the database is queried for IP request information from log.
+		Function parseLoadLog(String filename)-
+		        This function takes the filename and parses the content and loads/inserts the data to ACCESS_LOG.
+		To run this program-
+		$ javac InsertToDB.java 
+		$ java InsertToDB
+
+	iii)Parser.java
+		This class gets the command line arguments and builds a Hashmap for them. Then it calls the parseLoadLog from InsertToDB class. Then it queries the database for the specified startdate, duration and threshold. The ip_addresses exceeding the threshold are blocked and inserted into BLOCKED_IP_ADDRESS table.
+		Function argumentParser(String[] args)-
+				Builds a Hahsmap of all the commandline arguments for simple execution.
+		Function getExceededHitsIP(Connection con, String startDate, String duration , int threshold)-
+				This function builds and runs the query to get all the Ip_address exceeding threshold for given duraion. Also, inserts and blocks these Ip_address in Table BLOCKED_IP_ADDRESS.
+
+		To run this program- 
+		$ java -cp "parser.jar" com.ef.Parser --accesslog=access_copy.log --startDate=2017-01-01.00:00:00 --duration=daily --threshold=500
+
+3) SQL_QUERY.sql
+		This file contains the Schema create statements and Select queries for the SQL test.
+
+
+
+
+

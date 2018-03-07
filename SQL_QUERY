@@ -1,0 +1,44 @@
+-- SQL DB SCHEMA 
+--- TABLE TO STORE THE PARSED DATA FROM access.log
+CREATE TABLE `ACCESS_LOG` (
+ `Date` datetime NOT NULL,
+ `IP_Address` varchar(50) CHARACTER SET ascii NOT NULL,
+ `Request` varchar(500) CHARACTER SET ascii NOT NULL,
+ `HTTP_Code` int(11) NOT NULL,
+ `User_Agent` varchar(1000) NOT NULL
+);
+
+--- TABLE TO STORE THE BLOCKED IP ADDRESS AND BLOCKING REASON
+CREATE TABLE `BLOCKED_IP_ADDRESS` (
+ `IP_Address` varchar(50) NOT NULL,
+ `Block_Reason` varchar(100) NOT NULL
+);
+
+
+-- SQL QUERY FOR TEST
+--1) SQL QUERY to get Request count more than given threshold within a given hour 
+
+	    SELECT  `IP_Address` AS IP, COUNT(  `IP_Address` ) AS count
+		FROM ACCESS_LOG
+		WHERE  `Date` BETWEEN  '2017-01-01 15:00:00' AND  '2017-01-01 15:59:59'
+		GROUP BY  `IP_Address`
+		HAVING count >200;
+
+
+		SELECT  `IP_Address` AS IP, COUNT(  `IP_Address` ) AS count
+		FROM ACCESS_LOG
+		WHERE  `Date` BETWEEN  '2017-01-01 13:00:00' AND  '2017-01-01 14:00:00'
+		GROUP BY  `IP_Address`
+		HAVING count >100;
+
+
+--2) Write MySQL query to find requests made by a given IP
+
+	SELECT * 
+	FROM  `ACCESS_LOG` 
+	WHERE  `IP_Address` =  '192.168.11.231';
+
+--3) WRITE MySQL query to find total request made by a given IP
+	SELECT IP_Address , COUNT(IP_Address) as total_requests 
+	FROM `ACCESS_LOG` 
+	WHERE IP_Address = "192.168.129.191";

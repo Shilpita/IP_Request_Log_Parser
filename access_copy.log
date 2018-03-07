@@ -1,0 +1,6 @@
+2017-01-01 00:00:11.763|192.16.234.82|"GET / HTTP/1.1"|200|"swcd (unknown version) CFNetwork/808.2.16 Darwin/15.6.0 Shilpita"
+2017-01-01 00:00:21.164|192.16.234.82|"GET / HTTP/1.1"|200|"swcd (unknown version) CFNetwork/808.2.16 Darwin/15.6.0 Shilpita"
+2017-01-01 00:00:23.003|192.16.169.194|"GET / HTTP/1.1"|200|"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.79 Safari/537.36 Edge/14.14393 Shilpita"
+2017-01-01 00:00:40.554|192.168.23.82|"GET / HTTP/1.1"|200|"swcd (unknown version) CFNetwork/808.2.16 Darwin/15.6.0 Shilpita"
+2017-01-01 00:01:02.113|192.168.24.138|"GET / HTTP/1.1"|200|"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0 Shilpita"
+2017-01-01 00:01:04.033|192.168.54.139|"GET / HTTP/1.1"|200|"Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36 Shilpita"
